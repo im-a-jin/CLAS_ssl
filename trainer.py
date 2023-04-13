@@ -58,8 +58,9 @@ class Trainer():
             for X, y in train_loader:
                 X, y = X.to(self.device), y.to(self.device)
                 optimizer.zero_grad()
-                y = model(X)
-                # TODO: specify SSL criterion (cosine similarity loss?)
-                loss = criterion(X, y)
+                X1, X2 = X, model.transform(X)
+                z1, z2 = model(X1), model(X2)
+                # SSL loss criterion (cosine similarity loss?)
+                loss = nn.CosineSimilarity(z1, z2)
                 loss.backward()
                 optimizer.step()
