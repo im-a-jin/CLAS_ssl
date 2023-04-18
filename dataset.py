@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 from torch.utils.data import Dataset
+import pickle
 
 class PPGDataset(Dataset):
     """Dataset class of CLAS PPG signals.
@@ -15,10 +16,10 @@ class PPGDataset(Dataset):
         classes: cognitive load label
     """
     def __init__(self, filepath):
-        amat = np.loadtxt(filepath)
-        # TODO: modify amat indices to match data format
-        self.data = torch.FloatTensor(amat[:, :-1])
-        self.classes = torch.LongTensor(amat[:, -1])
+        with open(filepath, 'rb') as f:
+            data = pickle.load(f)
+        self.data = torch.FloatTensor(data[0])
+        self.classes = torch.LongTensor(data[1])
 
     def __len__(self):
         """Number of samples in the dataset"""
