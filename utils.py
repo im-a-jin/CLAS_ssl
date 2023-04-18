@@ -28,8 +28,8 @@ def label_data(filename, split=50):
 
     print(train_x.shape, train_y.shape, test_x.shape, test_y.shape)
 
-    trainpath = os.path.join(datadir, f"train_{filename}")
-    testpath = os.path.join(datadir, f"test_{filename}")
+    trainpath = os.path.join(datadir, f"train_{filename}.pkl")
+    testpath = os.path.join(datadir, f"test_{filename}.pkl")
     with open(trainpath, 'wb') as f:
         pickle.dump((train_x, train_y), f)
     with open(testpath, 'wb') as f:
