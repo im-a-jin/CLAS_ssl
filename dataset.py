@@ -21,6 +21,12 @@ class PPGDataset(Dataset):
         self.data = torch.FloatTensor(data[0])
         self.classes = torch.LongTensor(data[1])
 
+    def to_idx(self):
+        self.classes[self.classes == -1] = 0
+
+    def to_sgn(self):
+        self.classes[self.classes == 0] = -1
+
     def __len__(self):
         """Number of samples in the dataset"""
         return len(self.classes)

@@ -1,3 +1,4 @@
 CLAS/
 signals/
 .ipynb_checkpoints/
+*.ipynb

@@ -2,6 +2,7 @@ import scipy.io as io
 import numpy as np
 import pickle
 import os
+import torch
 
 datadir = 'signals/'
 labels = {0: -1, 1: 1, 2: 1}
@@ -34,3 +35,10 @@ def label_data(filename, split=50):
         pickle.dump((train_x, train_y), f)
     with open(testpath, 'wb') as f:
         pickle.dump((test_x, test_y), f)
+
+def permute(signal, size=64):
+    segments = torch.split(signal, size, dim=1)
+    indices = np.random.permutation(len(segments))
+    permuted = tuple(segments[i] for i in indices)
+    return torch.cat(permuted, dim=1)
+
